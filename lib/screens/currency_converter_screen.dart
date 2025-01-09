@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -28,6 +29,14 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
       _isLoading = true;
       _errorMessage = null; // Reset error message
     });
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _errorMessage = 'No internet connection';
+        _isLoading = false;
+      });
+      return;
+    }
     final apiKey = dotenv.env['API_KEY'];
     final url = Uri.parse(
         'https://v6.exchangerate-api.com/v6/$apiKey/latest/$_fromCurrency?symbols=$_toCurrency');
@@ -55,14 +64,28 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
         });
       }
     } catch (e) {
-      setState(() {
-        _errorMessage = 'Error: $e';
-      });
+      if (e is http.ClientException) {
+        showErrorSnackbar(
+            context, 'Network error occurred. Please try again later.');
+      } else {
+        setState(() {
+          showErrorSnackbar(context, 'Error: $e');
+        });
+      }
     } finally {
       setState(() {
         _isLoading = false;
       });
     }
+  }
+
+  void showErrorSnackbar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+      ),
+    );
   }
 
   @override
