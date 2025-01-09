@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -25,18 +24,37 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
 
   Future<void> convertCurrency() async {
     double amount = double.tryParse(_amountController.text) ?? 0.0;
-    setState(() {
-      _isLoading = true;
-      _errorMessage = null; // Reset error message
-    });
-    var connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
-      setState(() {
-        _errorMessage = 'No internet connection';
-        _isLoading = false;
-      });
+    try {
+      String sanitizedInput =
+          _amountController.text.replaceAll(RegExp(r'[,.]'), '');
+
+      amount = double.parse(sanitizedInput);
+
+      if (_fromCurrency == 'VND' || _toCurrency == 'VND') {
+        if (amount != amount.floorToDouble()) {
+          showErrorSnackbar(context, 'VND must be a whole number.');
+          return;
+        }
+      }
+
+      if (amount <= 0) {
+        showErrorSnackbar(context, 'Amount must be greater than 0.');
+        return;
+      }
+
+      if (_fromCurrency == _toCurrency) {
+        showErrorSnackbar(context, 'From and To currencies must be different.');
+        return;
+      }
+    } catch (e) {
+      showErrorSnackbar(
+          context, 'Invalid amount. Please enter a valid number.');
       return;
     }
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
     final apiKey = dotenv.env['API_KEY'];
     final url = Uri.parse(
         'https://v6.exchangerate-api.com/v6/$apiKey/latest/$_fromCurrency?symbols=$_toCurrency');
