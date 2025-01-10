@@ -1,4 +1,4 @@
-import 'package:currencyconverter/utils/currency_converter.dart';
+import 'package:currencyconverter/services/currency_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,6 +49,7 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
         showErrorSnackbar(context, 'From and To currencies must be different.');
         return;
       }
+
     } catch (_) {
       showErrorSnackbar(
           context, 'Invalid amount. Please enter a valid number.');
