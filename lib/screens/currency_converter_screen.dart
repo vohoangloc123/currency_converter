@@ -1,3 +1,4 @@
+import 'package:currencyconverter/screens/analysts_creen.dart';
 import 'package:currencyconverter/services/currency_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -49,7 +50,6 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
         showErrorSnackbar(context, 'From and To currencies must be different.');
         return;
       }
-
     } catch (_) {
       showErrorSnackbar(
           context, 'Invalid amount. Please enter a valid number.');
@@ -85,6 +85,31 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AnalystScreen()),
+              );
+            },
+            icon: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(width: 8), // Khoảng cách giữa icon và text
+                Text(
+                  'Exchange Rate Analyst',
+                  style: TextStyle(fontSize: 16),
+                ),
+                const SizedBox(width: 8),
+                Icon(Icons.analytics),
+              ],
+            ),
+            tooltip: 'Go to Analyst Screen',
+          )
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
