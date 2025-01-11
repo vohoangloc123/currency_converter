@@ -1,88 +1,101 @@
-### Currency Converter
+# Currency Converter
 
-## 1 Mô tả cấu trúc ứng dụng.
+## 1. Application Structure Description
 
-# Mục đích
-Ứng dụng giúp người dùng chuyển đổi tiền tệ giữa các quốc gia, tự động cập nhật tỷ giá và kiểm tra điều kiện hợp lệ khi nhập liệu.
+### Purpose
+The application helps users convert currencies between countries, automatically updates exchange rates, and validates inputs while displaying real-time exchange rates.
 
-# Chức năng chính
--Nhập số tiền: Hỗ trợ định dạng số hợp lệ, không cho phép số âm và ký tự không phải số.
--Chọn đơn vị tiền tệ: Người dùng chọn đơn vị tiền từ danh sách (USD, VND, EUR, GBP,...).
--Chuyển đổi tiền tệ: Tính toán kết quả chuyển đổi dựa trên tỷ giá hiện tại.
--Đổi vị trí tiền tệ: Đổi vị trí "From Currency" ↔ "To Currency".
--Hiển thị kết quả: Số tiền sau khi chuyển đổi và đơn vị tiền tệ đích.
-# Cấu trúc ứng dụng
--Frontend (UI)
-+Ngôn ngữ: Flutter (Dart)
--Thư viện:
-    +flutter_dotenv: ^5.2.1: Quản lý các biến môi trường trong Flutter, lưu trữ API keys và thông tin cấu hình trong tệp .env.
-    +flutter_spinkit: ^5.2.1: Cung cấp các hiệu ứng loading spinner đẹp mắt và dễ sử dụng trong Flutter.
-    +http: ^1.2.2: Gửi yêu cầu HTTP (GET, POST, PUT, DELETE, ...) từ Flutter đến các API hoặc dịch vụ web.
-    +google_fonts: ^6.2.1: Dễ dàng sử dụng các phông chữ Google Fonts trong Flutter mà không cần tải phông chữ thủ công.
--Màn hình chính:
-    +Nhập số tiền, chọn loại tiền tệ nguồn và đích.
-    +Nút chuyển đổi tiền tệ và nút "Swap" đổi vị trí hai loại tiền tệ.
-    +Hiển thị kết quả chuyển đổi.
-    +Backend (Logic & API)
--Tính năng:
-    +Gọi API bên thứ ba ExchangeRateAPI để lấy tỷ giá.
-    +Kiểm tra dữ liệu đầu vào: số tiền phải lớn hơn 0, tiền "VND" phải là số nguyên, và hai loại tiền tệ không trùng nhau.
--Công nghệ:
-    +Logic xử lý tính toán bằng Dart.
-    +Gọi API qua thư viện http.
-    +Kiểm tra dữ liệu nhập
-    +Đảm bảo số tiền hợp lệ và lớn hơn 0.
-    +Kiểm tra định dạng tiền tệ đầu vào.
-    +Kiểm tra "From Currency" và "To Currency" khác nhau.
-    +Đảm bảo "VND" phải là số nguyên.
-    +Xử lý lỗi nếu API không trả về kết quả hoặc gặp lỗi mạng.
+### Key Features
+- **Enter Amount**: Supports valid number formatting, disallows negative numbers and non-numeric characters.  
+- **Select Currency Unit**: Users can choose currency units from a list (USD, VND, EUR, GBP, etc.).  
+- **Currency Conversion**: Calculates conversion results based on current exchange rates.  
+- **Swap Currencies**: Switch positions between "From Currency" ↔ "To Currency".  
+- **Display Results**: Shows the converted amount and the target currency unit.  
+- **Real-Time Exchange Rate Chart**: Displays exchange rates in a bar chart.
 
-# Cấu trúc thư mục
-lib/
-├── main.dart                                # Điểm khởi đầu của ứng dụng
-├── screens/
-│   ├── currency_converter_screen.dart       # Màn hình chính chuyển đổi tiền tệ
-├── services/
-│   ├── currency_converter.dart              # Lớp gọi API lấy tỷ giá hối đoái
+### Application Structure
 
-## 2 Hướng dẫn xây dựng và chạy ứng dụng.
+#### Frontend (UI)
+- **Language**: Flutter (Dart)  
+- **Libraries**:  
+  - `flutter_dotenv`: ^5.2.1 - Manages environment variables, stores API keys and configurations in a `.env` file.  
+  - `flutter_spinkit`: ^5.2.1 - Provides beautiful and easy-to-use loading spinners.  
+  - `http`: ^1.2.2 - Sends HTTP requests (GET, POST, PUT, DELETE, etc.) from Flutter to APIs or web services.  
+  - `google_fonts`: ^6.2.1 - Enables easy usage of Google Fonts in Flutter without manual font loading.  
 
-# 1 Cài đặt Flutter:
+#### Main Screen
+- Input the amount, select source and target currencies.  
+- Includes a "Convert" button and a "Swap" button to switch between the two currencies.  
+- Displays conversion results.  
+#### Exchange Rate Analysis Screen:  
+- Displays a real-time exchange rate chart.  
+#### Backend (Logic & API)
 
-Tải và cài đặt Flutter SDK từ trang chính của Flutter.
-Đảm bảo rằng đã cài đặt Android Studio hoặc VS Code và cấu hình môi trường phát triển Flutter.
-# 2 Cài đặt các phụ thuộc:
+- **Features**:  
+  - Fetches exchange rates using a third-party API (ExchangeRateAPI).  
+  - Validates input data:  
+    - Amount must be greater than 0.  
+    - VND must be an integer.  
+    - Source and target currencies must be different.  
+  - Handles errors if the API fails to return results or encounters network issues.  
+  - Displays a real-time exchange rate chart. 
 
-bước 1 Mở terminal hoặc command prompt và di chuyển đến thư mục dự á.
+#### Technologies:
+- **Logic**: Calculation logic is implemented in Dart.  
+- **API Calls**: Managed via the `http` library.  
+- **Input Validation**:  
+  - Ensures valid and positive amounts.  
+  - Checks input currency format.  
+  - Validates that "From Currency" and "To Currency" are different.  
+  - Ensures "VND" is entered as an integer.  
 
-bước 2 Chạy lệnh sau để cài đặt tất cả các gói phụ thuộc: flutter pub get
+### Directory Structure
+```plaintext
+lib/  
+├── main.dart                                # Application entry point  
+├── screens/  
+    ├── currency_converter_screen.dart       # Main currency conversion screen  
+    ├── analysts_screen.dart                 # Exchange rate analysis screen  
+├── services/  
+    ├── currency_converter.dart              # API class for fetching exchange rates  
+    ├── fetch_exchange_rates.dart            # API class for fetching rates for the bar chart  
+├── widgets/  
+    ├── chart_painter.dart                   # Bar chart widget  
 
-bước 3 Cấu hình Key API
-    1. Truy cập trang web https://www.exchangerate-api.com và tạo tài khoản.
-    2. Sau khi đăng ký, trang web sẽ cung cấp cho bạn một API key.
-    3. Tạo tệp .env trong thư mục root/assets/ của dự án.
-    4. Mở tệp .env và thêm dòng sau để lưu API key: API_KEY=your_api_key_here
+```
+## 2 Guide to Building and Running the Application
+1 Installing Flutter:
+Download and install the Flutter SDK from Flutter's official website.<br> Ensure that Android Studio or VS Code is installed, and the Flutter development environment is properly configured.<br>
 
-bước 4 Chạy ứng dụng trên thiết bị giả lập hoặc thật:
-    +Kết nối thiết bị thật qua USB hoặc mở thiết bị giả lập (Android Emulator/iOS Simulator).
-    +Lưu ý: Đảm bảo rằng chế độ nhà phát triển (Developer Mode) đã được bật trên thiết bị thật.
+2 Installing Dependencies: <br>
+- Step 1: Open a terminal or command prompt and navigate to the project directory.<br>
 
-bước 5 Chạy ứng dụng bằng lệnh:
-    +flutter run
+- Step 2: Run the following command to install all required packages:
+```flutter pub get```<br>
 
-bước 6 Xây dựng ứng dụng cho release:
-    +flutter build apk    # cho Android
-    +flutter build ios    # cho iOS
-bước 7 Kiểm tra ứng dụng:
+- Step 3: Configure the API Key:
 
-    +Sau khi ứng dụng chạy, kiểm tra các chức năng chính như chuyển đổi tiền tệ, nhập liệu và hiển thị kết quả.
+Visit https://www.exchangerate-api.com and create an account.<br>
+After registering, the website will provide you with an API key.<br>
+Create a .env file in the root/assets/ directory of the project.<br>
+Open the .env file and add the following line to save the API key:
+```API_KEY=your_api_key_here<br>```
+- Step 4: Run the application on an emulator or a physical device:
 
-## 3 Ghi chú hoặc thách thức gặp phải.
+Connect a physical device via USB or launch an emulator (Android Emulator/iOS Simulator).
+Note: Ensure that Developer Mode is enabled on the physical device.<br>
+Step 5: Run the application using the command:
+flutter run<br>
 
-# Thách thức với ExchangeRate API:
+Step 6: Build the application for release:
 
-Giới hạn truy vấn: Phiên bản miễn phí của ExchangeRate API chỉ cho phép tối đa 1.500 lần gọi mỗi tháng. Nếu cần nhiều lượt truy vấn, có thể tối ưu hóa hoặc nâng cấp lên phiên bản trả phí.
+For Android: flutter build apk
+For iOS: flutter build ios<br>
+Step 7: Test the application:
 
-# Ghi chú
-
-Dù em không được chọn, em vẫn rất mong nhận được phản hồi về ứng dụng của mình. Dù chỉ là một sản phẩm nhỏ, nhưng em đã dành rất nhiều thời gian và tâm huyết để thực hiện. Những ý kiến đóng góp của anh/chị sẽ giúp em trưởng thành và cải thiện hơn nữa. Em xin cảm ơn!
+Once the application is running, test key features such as currency conversion, data input, and result display.<br>
+## 3 Notes or Challenges Encountered
+Challenges with ExchangeRate API:
+Query Limit: The free version of the ExchangeRate API allows a maximum of 1,500 requests per month. If more requests are required, consider optimizing usage or upgrading to a paid version.<br>
+Notes:
+Even if I am not selected, I sincerely hope to receive feedback on my application. Although it is a small project, I have dedicated a lot of time and effort to it. Your suggestions and feedback will help me grow and improve further. Thank you very much!<br>
