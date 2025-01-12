@@ -1,5 +1,9 @@
 # Currency Converter
 
+## Link video demo: https://drive.google.com/file/d/1KQ2xLLy4SNFLVgE-GG1kKFNHlygFxXIC/view?usp=drive_link
+## Link to download APK for Android: https://drive.google.com/file/d/1Vy3RJkRdPGP30nWghHIz1tll-rRu5elU/view?usp=sharing
+If you encounter any issues or cannot view the video, feel free to email me or call me.
+
 ## 1. Application Structure Description
 
 ### Purpose
