@@ -94,16 +94,22 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
                 MaterialPageRoute(builder: (context) => AnalystScreen()),
               );
             },
-            icon: const Row(
+            icon: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(width: 8), // Khoảng cách giữa icon và text
+                const SizedBox(width: 8), // Khoảng cách giữa icon và text
                 Text(
                   'Exchange Rate Analyst',
-                  style: TextStyle(fontSize: 16),
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(width: 8),
-                Icon(Icons.analytics),
+                Icon(Icons.analytics,
+                    color: Theme.of(context).colorScheme.primary),
               ],
             ),
             tooltip: 'Go to Analyst Screen',
@@ -215,28 +221,43 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
             const SizedBox(height: 32.0),
             ElevatedButton(
               onPressed: _handleConvert,
-              child: const Text('Convert'),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0), // Bo góc nhẹ 8px
                 ),
               ),
+              child: Text(
+                'Convert',
+                style: GoogleFonts.poppins(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
             ),
             const SizedBox(height: 16.0),
             if (_isLoading)
-              SpinKitPouringHourGlass(
+              SpinKitWaveSpinner(
                 color: Theme.of(context).colorScheme.primary,
                 size: 100.0,
               )
             else if (_convertedAmount != null)
               Text(
                 'Converted Amount: ${_convertedAmount!.toStringAsFixed(2)}',
-                style: const TextStyle(fontSize: 18),
+                style: GoogleFonts.poppins(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               )
             else
-              const Text(
+              Text(
                 'Please enter an amount and select currencies to convert.',
-                style: TextStyle(fontSize: 18, color: Colors.grey),
+                style: GoogleFonts.poppins(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
           ],
         ),

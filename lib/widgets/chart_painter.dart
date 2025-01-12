@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 class ChartPainter extends CustomPainter {
   final List<ChartData> chartData;
   final List<Color> colors = [
-    Colors.blue,
-    Colors.green,
-    Colors.orange,
-    Colors.purple,
+    const Color.fromARGB(255, 182, 166, 233),
+    const Color.fromARGB(255, 67, 148, 229),
+    const Color.fromARGB(255, 135, 187, 98),
+    const Color.fromARGB(255, 245, 146, 27),
   ];
 
+  String currentDate = DateTime.now().toString().split(' ')[0];
   ChartPainter(this.chartData);
 
   @override
@@ -86,7 +87,7 @@ class ChartPainter extends CustomPainter {
         Offset(size.width, size.height - 40), paint); // X-axis line
 
     TextSpan titleText = TextSpan(
-      text: 'Exchange Rates Chart',
+      text: 'Exchange Rates Chart $currentDate',
       style: textStyle.copyWith(fontSize: 18, fontWeight: FontWeight.bold),
     );
     TextPainter titlePainter = TextPainter(
